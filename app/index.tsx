@@ -7,9 +7,11 @@ export default function HomeScreen() {
   return (
     <>
         {/* <p style={styles.title}>for the meantime 🤨</p> */}
-        <SignUpComponent>
+        <SignUpComponent
+
+        />
           
-        </SignUpComponent>
+        
 
         </>
   );
