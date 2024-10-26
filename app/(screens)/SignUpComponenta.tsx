@@ -16,7 +16,7 @@ const SignUpComponent:React.FC =observer(()=> {
   const [password, setPassword] = useState('');
 
 useEffect(()=>{
-fetchData();
+  fetchdatausers();
 },[])
 
 
@@ -24,7 +24,7 @@ fetchData();
     if (userName && email && password) {
       const emailCheck = UserStore.users.some(user => user.email === email);
       if(emailCheck){
-        console.log("you need to SignIn")
+        Alert.alert("You are already registered in the system, please enter in the SignIn page");
       }
       else{
           const newUser = {
@@ -32,45 +32,31 @@ fetchData();
             email:email,
             password:password
           };
-        
+
           try {
             const response = await axios.post('http://localhost:8003/api/users/', newUser);
-            
-            // הוספת המשתמש ל-store אם הבקשה הצליחה
-            UserStore.addUser(response.data); // הנח ש-addUser ב-UserStore מוסיף את המשתמש למערך
-            console.log('User added successfully:', response.data);
+            UserStore.addUser(response.data);
           } catch (error) {
             console.error('Error adding user:', error);
-            // כאן תוכל להציג הודעה למשתמש אם נדרש
           }
         
         }
+
         setUserName('');
         setEmail('');
         setPassword('');
-    //   const newUser: User = { userName, email, password };
-    //   UserStore.addUser(newUser);
-    //   setUserName('');
-    //   setEmail('');
-    //   setPassword('');
-    // } else {
-    //   Alert.alert("Please enter both name and email and password");
     }
-    
-    
-    // const newuser:User={userName,email,password};
-    // UserStore.addUser(newuser)
-    // console.log(UserStore.userCount);
-    // console.log(UserStore.users);
+    else{
+      Alert.alert("Please enter both name and email and password");
+    }
   };
 
   
 
-  const fetchData = async () => {
+  const fetchdatausers = async () => {
     try {
       const response= await axios.get('http://localhost:8003/api/users/');
       UserStore.users=response.data;
-      console.log(UserStore.users[0]);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
