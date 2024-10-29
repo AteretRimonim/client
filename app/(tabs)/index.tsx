@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f0f0',
-    direction: 'rtl', // הגדרת כיווניות גלובלית
+    // direction: 'rtl', // הגדרת כיווניות גלובלית
     alignItems: 'center', // כל האלמנטים יהיו מיושרים מימין
     
   },

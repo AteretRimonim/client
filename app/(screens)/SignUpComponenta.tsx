@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     // backgroundColor: '#f8f8f8',
-    direction: 'rtl',
+    // direction: 'rtl',
   },
   title: {
     fontSize: 24,
