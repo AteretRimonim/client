@@ -8,7 +8,7 @@ import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { useState } from 'react';
 import GenericForm from '@/components/GenericForm';
-import SignInComponent from '@/screens/sign in/SignInComponent';
+import SignInComponent from '@/screens/sign up/SignUpComponent';
 export default function HomeScreen() {
   const [text, setText] = useState('');
   // const formFields = [
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f0f0',
-    direction: 'rtl', // הגדרת כיווניות גלובלית
+    // direction: 'rtl', // הגדרת כיווניות גלובלית
     alignItems: 'center', // כל האלמנטים יהיו מיושרים מימין
     
   },

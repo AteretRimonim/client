@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import Input from '@/components/Input'
 
-export default function SignInComponent() {
+export default function SignUpComponent() {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     // backgroundColor: '#f8f8f8',
-    direction: 'rtl',
+    // direction: 'rtl',
   },
   title: {
     fontSize: 24,
