@@ -10,6 +10,7 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { LoginRequest } from "@/types/userType";
 import userStore from "@/store/userStore";
+import { login } from "@/api/userApi";
 
 export default function LoginComponent() {
   const [email, setEmail] = useState("");
@@ -26,18 +27,24 @@ export default function LoginComponent() {
   const handleLogin = async () => {
     setLoading(true);
     const loginData: LoginRequest = { password, email };
-
     try {
-        await userStore.loginUser(loginData);
+      const token = await login(loginData);
+      setMessage('Logged in with token:' + token);
+  } catch (err) {
+    setMessage('Login failed. Please check your credentials.');
+  }
+    // try {
+    //     await userStore.loginUser(loginData);
         
-        if (userStore.isLoggedIn) {
-            setMessage(`Login successful! Welcome, ${userStore.user?.userName}`);
-        } else {
-            setMessage(userStore.loginError);
-        }
-    } catch (error) {
-        setMessage("An error occurred while logging in.");
-    } finally {
+    //     if (userStore.isLoggedIn) {
+    //         setMessage(`Login successful! Welcome, ${userStore.user?.userName}`);
+    //     } else {
+    //         setMessage(userStore.loginError);
+    //     }
+    // } catch (error) {
+    //     setMessage("An error occurred while logging in.");
+    // } 
+    finally {
         setLoading(false);
     }
 };
