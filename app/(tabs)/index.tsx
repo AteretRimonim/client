@@ -9,6 +9,7 @@ import Input from '@/components/Input';
 import { useState } from 'react';
 import GenericForm from '@/components/GenericForm';
 import SignInComponent from '@/screens/sign in/SignInComponent';
+import React from 'react';
 export default function HomeScreen() {
   const [text, setText] = useState('');
   // const formFields = [
@@ -22,22 +23,27 @@ export default function HomeScreen() {
   //   Alert.alert('Form Submitted', JSON.stringify(data));
   // };
   return (
+  //   <SafeAreaView style={styles.container}>
+  //      {/* <GenericForm fields={formFields} onSubmit={handleFormSubmit} /> */}
+  //  <SignInComponent></SignInComponent>
+  //   <Button 
+  //     title="לחץ כאן" 
+  //     onPress={() => alert('כפתור נלחץ!')} 
+  //     color="#fff" 
+  //     backgroundColor="#28a745" 
+  //   />
+  //     <Input 
+  //       fieldType='text'
+  //       value={text} 
+  //       onChangeText={setText} 
+  //       placeholder="הקלד כאן" 
+  //     />
+  // </SafeAreaView>
+  <>
     <SafeAreaView style={styles.container}>
-       {/* <GenericForm fields={formFields} onSubmit={handleFormSubmit} /> */}
-   <SignInComponent></SignInComponent>
-    <Button 
-      title="לחץ כאן" 
-      onPress={() => alert('כפתור נלחץ!')} 
-      color="#fff" 
-      backgroundColor="#28a745" 
-    />
-      <Input 
-        fieldType='text'
-        value={text} 
-        onChangeText={setText} 
-        placeholder="הקלד כאן" 
-      />
-  </SafeAreaView>
+        <p>for the meantime 🤨</p>
+        </SafeAreaView>
+        </>
   );
 }
 
@@ -45,7 +51,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f0f0',
-    direction: 'rtl', // הגדרת כיווניות גלובלית
+    writingDirection: 'rtl', // הגדרת כיווניות גלובלית
     alignItems: 'center', // כל האלמנטים יהיו מיושרים מימין
     
   },
