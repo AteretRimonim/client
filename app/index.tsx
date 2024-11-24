@@ -2,6 +2,7 @@ import { StyleSheet, Platform, SafeAreaView } from 'react-native';
 import SignInComponent from './(screens)/SignInComponent';
 import LoginComponent from '@/screens/login/LoginComponent';
 import React from 'react';
+import SignUpComponent from '@/screens/sign up/SignUpComponent';
 
 
 export default function HomeScreen() {
@@ -10,7 +11,8 @@ export default function HomeScreen() {
     <>
     <SafeAreaView style={styles.container}>
         <p style={styles.title}>for the meantime 🤨</p>
-        <LoginComponent></LoginComponent>
+        {/* <LoginComponent></LoginComponent> */}
+        <SignUpComponent></SignUpComponent>
         </SafeAreaView>
         </>
   );

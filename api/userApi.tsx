@@ -1,6 +1,6 @@
 import axios from "axios";
 import UserStore from '@/store/userStore';
-import { LoginRequest } from "@/types/userType";
+import { LoginRequest, User } from "@/types/userType";
 
 const host=process.env.HOST;
 
@@ -21,3 +21,13 @@ export const login = async (data:LoginRequest) => {
       console.error('Error fetching data:', error);
     }
   };
+  export const signUpUser = async (data:User) => {
+    try {
+      const response = await axios.post(`${host}/users`, data, {
+        validateStatus: () => true, // get all the status code
+    });
+      return response.status;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
