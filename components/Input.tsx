@@ -1,5 +1,6 @@
-import React from 'react';
-import { StyleSheet, TextInput, View, TextInputProps } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TextInput, View, Text, TouchableOpacity, TextInputProps } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; // נדרש להוסיף חבילת Expo Icons
 
 type FieldType = 'text' | 'number' | 'email' | 'password';
 
@@ -19,7 +20,6 @@ type InputProps = {
   fieldType: FieldType;
   onChangeText: (text: string) => void;
   placeholder?: string;
-  secureTextEntry?: boolean;
   style?: TextInputProps['style'];
 };
 
@@ -28,30 +28,61 @@ const Input: React.FC<InputProps> = ({
   fieldType,
   onChangeText,
   placeholder,
-  secureTextEntry = false,
   style,
 }) => {
+  const [secureEntry, setSecureEntry] = useState(fieldType === 'password');
+  const [error, setError] = useState<string | null>(null);
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleChangeText = (text: string) => {
     if (fieldType === 'number') {
-      // סינון תווים שאינם מספרים
       const numericValue = text.replace(/[^0-9]/g, '');
       onChangeText(numericValue);
+      setError(null);
+    } else if (fieldType === 'email') {
+      onChangeText(text);
+      if (!validateEmail(text)) {
+        setError('כתובת האימייל אינה תקינה');
+      } else {
+        setError(null);
+      }
     } else {
       onChangeText(text);
+      setError(null);
     }
+  };
+
+  const toggleSecureEntry = () => {
+    setSecureEntry((prev) => !prev);
   };
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={[styles.input, style]}
-        value={value}
-        onChangeText={handleChangeText}
-        keyboardType={getKeyboardType(fieldType)}
-        placeholder={placeholder}
-        secureTextEntry={secureTextEntry}
-        autoCapitalize={fieldType === 'email' ? 'none' : 'sentences'} // התאמה לאימייל
-      />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={[styles.input, style, error ? styles.inputError : null]}
+          value={value}
+          onChangeText={handleChangeText}
+          keyboardType={getKeyboardType(fieldType)}
+          placeholder={placeholder}
+          secureTextEntry={secureEntry}
+          autoCapitalize={fieldType === 'email' ? 'none' : 'sentences'}
+        />
+        {fieldType === 'password' && (
+          <TouchableOpacity onPress={toggleSecureEntry} style={styles.eyeIcon}>
+            <Ionicons
+              name={secureEntry ? 'eye-off' : 'eye'}
+              size={20}
+              color="#888"
+            />
+          </TouchableOpacity>
+        )}
+      </View>
+      {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };
@@ -61,15 +92,31 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     alignSelf: 'stretch',
   },
-  input: {
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ccc',
-    padding: 10,
     borderRadius: 5,
-    fontSize: 16,
     backgroundColor: 'white',
-    alignSelf: 'flex-start',
+    paddingRight: 10,
+  },
+  input: {
+    flex: 1,
+    padding: 10,
+    fontSize: 16,
     textAlign: 'right',
+  },
+  eyeIcon: {
+    marginLeft: 10,
+  },
+  inputError: {
+    borderColor: 'red',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginTop: 5,
   },
 });
 
