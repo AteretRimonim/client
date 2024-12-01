@@ -7,6 +7,8 @@ import UserStore from '@/store/userStore';
 import {User} from '@/types/userType';
 import { observer } from 'mobx-react';
 import axios from 'axios';
+import GoogleSignInButton from '@/components/GoogleSignInButton';
+
 
 const SignUpComponent:React.FC =observer(()=> {
 
@@ -34,7 +36,7 @@ useEffect(()=>{
           };
 
           try {
-            const response = await axios.post('http://localhost:8003/api/users/', newUser);
+            const response = await axios.post('http://localhost:3000/api/users/', newUser);
             UserStore.addUser(response.data);
           } catch (error) {
             console.error('Error adding user:', error);
@@ -55,7 +57,7 @@ useEffect(()=>{
 
   const fetchdatausers = async () => {
     try {
-      const response= await axios.get('http://localhost:8003/api/users/');
+      const response= await axios.get('http://localhost:3000/api/users/');
       UserStore.users=response.data;
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -92,6 +94,7 @@ useEffect(()=>{
       title= 'submit'
       onPress={handleAddUser}
       />
+    <GoogleSignInButton></GoogleSignInButton>
     </View>
   );
 });
